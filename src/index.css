@@ -134,6 +134,7 @@ body {
   gap: 10px;
   letter-spacing: -0.3px;
   cursor: pointer;
+  user-select: none;
 }
 
 .logo-mark {
@@ -149,9 +150,14 @@ body {
   font-size: 15px;
   color: #fff;
   box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+  flex-shrink: 0;
 }
 
-.logo span {
+.logo-name {
+  white-space: nowrap;
+}
+
+.logo-badge {
   font-family: 'JetBrains Mono', monospace;
   font-size: 13px;
   font-weight: 500;
@@ -160,6 +166,7 @@ body {
   border: 1px solid rgba(6, 182, 212, 0.25);
   padding: 2px 8px;
   border-radius: 6px;
+  white-space: nowrap;
 }
 
 .navbar {
@@ -196,6 +203,14 @@ body {
   box-shadow: 0 2px 10px rgba(99, 102, 241, 0.2);
 }
 
+.nav-item-icon,
+.nav-active-pill,
+.mobile-nav-header,
+.mobile-nav-footer,
+.mobile-nav-backdrop {
+  display: none;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -210,10 +225,13 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #94a3b8;
   padding: 7px 12px;
+  height: 38px;
   border-radius: 10px;
   font-size: 13px;
   cursor: pointer;
   transition: all 0.25s ease;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .cmd-trigger-btn:hover {
@@ -241,11 +259,22 @@ body {
   font-size: 13.5px;
   font-weight: 600;
   padding: 8px 15px;
+  height: 38px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
   transition: all 0.25s ease;
   box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.cv-label-short {
+  display: none;
+}
+
+.cv-label-full {
+  display: inline;
 }
 
 .cv-header-btn:hover {
@@ -256,11 +285,30 @@ body {
 
 .menu-toggle {
   display: none;
-  font-size: 28px;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  font-size: 24px;
   color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
   cursor: pointer;
-  background: none;
-  border: none;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.menu-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+.menu-toggle.active {
+  background: rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.45);
+  color: #ffffff;
 }
 
 /* =================== MAIN LAYOUT & CONTAINER =================== */
@@ -2215,9 +2263,6 @@ textarea.form-control {
 
 /* =================== RESPONSIVE =================== */
 @media (max-width: 992px) {
-  .header {
-    padding: 16px 28px;
-  }
   .hero-section {
     flex-direction: column-reverse;
     text-align: center;
@@ -2245,32 +2290,171 @@ textarea.form-control {
   }
 }
 
-@media (max-width: 768px) {
+/* TABLET & MOBILE NAVBAR COLLAPSE */
+@media (max-width: 900px) {
+  .header {
+    padding: 12px 22px;
+  }
   .menu-toggle {
-    display: block;
+    display: inline-flex;
   }
   .navbar {
     position: fixed;
-    top: 67px;
-    left: -100%;
+    top: 62px;
+    left: 0;
+    right: 0;
     width: 100%;
-    background: rgba(10, 14, 24, 0.98);
+    background: rgba(8, 11, 20, 0.98);
     border-bottom: 1px solid var(--border-subtle);
-    border-radius: 0;
+    border-radius: 0 0 20px 20px;
     flex-direction: column;
-    padding: 24px 0;
-    gap: 12px;
-    transition: left 0.3s ease;
-    backdrop-filter: blur(16px);
+    padding: 18px 20px 22px;
+    gap: 8px;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transform: translateY(-130%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    z-index: 99;
   }
   .navbar.open {
-    left: 0;
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
   }
+  .mobile-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 4px 10px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    width: 100%;
+  }
+  .mobile-nav-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .mobile-nav-hint {
+    font-size: 11px;
+    color: var(--accent-cyan);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .nav-link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    text-align: left;
+    transition: all 0.2s ease;
+  }
+  .nav-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #f8fafc;
+  }
+  .nav-link.active {
+    background: rgba(99, 102, 241, 0.18);
+    border-color: rgba(99, 102, 241, 0.4);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.2);
+  }
+  .nav-item-icon {
+    display: inline-flex;
+    font-size: 18px;
+    color: var(--accent-cyan);
+  }
+  .nav-active-pill {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(99, 102, 241, 0.3);
+    color: #c7d2fe;
+    border: 1px solid rgba(99, 102, 241, 0.4);
+  }
+  .mobile-nav-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 6px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    width: 100%;
+  }
+  .mobile-cmd-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 16px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+    cursor: pointer;
+  }
+  .mobile-cv-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 16px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+    background: var(--gradient-brand);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+  }
+  .mobile-nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 6, 12, 0.72);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 90;
+    animation: fadeIn 0.25s ease;
+  }
+  .cmd-kbd {
+    display: none;
+  }
+  .cv-label-full {
+    display: none;
+  }
+  .cv-label-short {
+    display: inline;
+  }
+}
+
+@media (max-width: 768px) {
   .container {
     padding: 0 20px;
   }
   .page-wrapper {
-    padding-top: 95px;
+    padding-top: 85px;
   }
   .home-content h1 {
     font-size: 34px;
@@ -2314,5 +2498,97 @@ textarea.form-control {
   }
   .cmd-modal {
     margin: 0 10px;
+  }
+}
+
+/* MOBILE PHONES - COMPACT TOP RIBBON BUTTONS */
+@media (max-width: 600px) {
+  .header {
+    padding: 10px 14px;
+  }
+  .header-actions {
+    gap: 6px;
+  }
+  .logo {
+    gap: 8px;
+    font-size: 16px;
+  }
+  .logo-mark {
+    width: 32px;
+    height: 32px;
+    font-size: 13.5px;
+    border-radius: 8px;
+  }
+  .logo-badge {
+    display: none;
+  }
+  .logo-name {
+    font-size: 15px;
+    font-weight: 600;
+    max-width: 125px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cmd-label {
+    display: none;
+  }
+  .cmd-trigger-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+    font-size: 17px;
+    border-radius: 9px;
+  }
+  .cv-header-btn {
+    height: 36px;
+    padding: 0 10px;
+    font-size: 12.5px;
+    border-radius: 9px;
+    gap: 5px;
+  }
+  .menu-toggle {
+    width: 36px;
+    height: 36px;
+    font-size: 21px;
+    border-radius: 9px;
+  }
+
+  /* HORIZONTAL FILTER RIBBON FOR PROJECTS */
+  .filter-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: 100%;
+  }
+  .filter-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .filter-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 7px 12px;
+    font-size: 13px;
+  }
+}
+
+/* SMALL SCREENS */
+@media (max-width: 375px) {
+  .header {
+    padding: 10px 10px;
+  }
+  .header-actions {
+    gap: 5px;
+  }
+  .logo-name {
+    max-width: 95px;
+    font-size: 14px;
+  }
+  .cv-header-btn {
+    padding: 0 8px;
+    font-size: 12px;
   }
 }
