@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stuart Mzimba | Full-Stack Developer</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="portfolio-enhancements.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-base: #06080f;
+      --bg-surface: rgba(15, 20, 32, 0.68);
+      --bg-surface-hover: rgba(22, 29, 46, 0.85);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-indigo: #6366f1;
+      --accent-cyan: #06b6d4;
+      --accent-violet: #8b5cf6;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-highlight: rgba(99, 102, 241, 0.45);
+      --gradient-brand: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+      --gradient-text: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #67e8f9 100%);
+      --shadow-glow: 0 20px 50px -15px rgba(99, 102, 241, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      text-decoration: none;
+      list-style: none;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.65;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* =================== AMBIENT AURORA & GRID BACKGROUND =================== */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 25%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 25%, #000 40%, transparent 100%);
+    }
+
+    .aurora-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      opacity: 0.42;
+      animation: floatOrb 14s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, var(--accent-indigo), transparent 70%);
+      top: -140px;
+      left: -100px;
+    }
+
+    .orb-2 {
+      width: 460px;
+      height: 460px;
+      background: radial-gradient(circle, var(--accent-cyan), transparent 70%);
+      top: 15%;
+      right: -120px;
+      animation-delay: -5s;
+    }
+
+    .orb-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--accent-violet), transparent 70%);
+      bottom: 5%;
+      left: 25%;
+      opacity: 0.22;
+      animation-delay: -9s;
+    }
+
+    /* =================== HEADER & NAVBAR =================== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 16px 60px;
+      background: rgba(6, 8, 15, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--gradient-brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .logo span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      padding: 5px;
+      border-radius: 12px;
+    }
+
+    .navbar a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .navbar a:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .navbar a.active {
+      color: #ffffff;
+      background: rgba(99, 102, 241, 0.18);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      box-shadow: 0 2px 10px rgba(99, 102, 241, 0.2);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      color: var(--text-primary);
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    /* =================== MAIN CONTAINER =================== */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .home {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 125px;
+      padding-bottom: 70px;
+    }
+
+    /* =================== HERO SECTION =================== */
+    .hero-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 90px;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .home-content {
+      max-width: 630px;
+      animation: fadeInUp 0.7s ease forwards;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #c7d2fe;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(8px);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulse 2s infinite;
+    }
+
+    .home-content h1 {
+      font-size: 60px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 14px;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .typing-wrapper {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 22px;
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2.5px;
+      height: 24px;
+      background: var(--accent-cyan);
+      margin-left: 6px;
+      animation: blink 0.8s infinite;
+    }
+
+    .home-content p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      margin-bottom: 34px;
+      line-height: 1.75;
+    }
+
+    .hero-buttons {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      background: var(--gradient-brand);
+      border-radius: 11px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -5px rgba(6, 182, 212, 0.55);
+      filter: brightness(1.08);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      box-shadow: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .quick-socials {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .quick-socials a {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: all 0.25s ease;
+    }
+
+    .quick-socials a:hover {
+      color: #fff;
+      border-color: var(--accent-indigo);
+      background: rgba(99, 102, 241, 0.15);
+      transform: translateY(-3px);
+    }
+
+    /* Portrait Card Frame */
+    .home-img-wrapper {
+      position: relative;
+      padding: 8px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(6, 182, 212, 0.3), rgba(255, 255, 255, 0.05));
+      box-shadow: var(--shadow-glow);
+      animation: floatImg 6s ease-in-out infinite;
+    }
+
+    .home-img {
+      width: 360px;
+      height: 380px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: #0d121f;
+    }
+
+    .home-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* =================== SECTION HEADERS =================== */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title i {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 30px;
+    }
+
+    .section-subtitle {
+      font-size: 15px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .view-all-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-cyan);
+      font-weight: 600;
+      font-size: 14.5px;
+      transition: 0.25s;
+    }
+
+    .view-all-link:hover {
+      gap: 10px;
+      color: #67e8f9;
+    }
+
+    /* =================== EXPERTISE BENTO GRID =================== */
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .expertise-card {
+      background: var(--bg-surface);
+      padding: 30px;
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .expertise-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-brand);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .expertise-card:hover {
+      transform: translateY(-5px);
+      background: var(--bg-surface-hover);
+      border-color: var(--border-highlight);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .expertise-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #818cf8;
+      margin-bottom: 20px;
+    }
+
+    .expertise-card h3 {
+      font-size: 19px;
+      color: var(--text-primary);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .expertise-card p {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.65;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .skill-tag {
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    /* =================== FEATURED PROJECTS PREVIEW =================== */
+    .featured-projects {
+      padding-bottom: 40px;
+    }
+
+    .projects-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .preview-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(16px);
+    }
+
+    .preview-card:hover {
+      transform: translateY(-5px);
+      background: var(--bg-surface-hover);
+      border-color: var(--border-highlight);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .preview-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .preview-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--accent-cyan);
+    }
+
+    .preview-lang {
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #a5b4fc;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      padding: 4px 11px;
+      border-radius: 50px;
+    }
+
+    .preview-card h3 {
+      font-size: 18.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      transition: color 0.25s;
+    }
+
+    .preview-card:hover h3 {
+      color: #67e8f9;
+    }
+
+    .preview-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.65;
+    }
+
+    .preview-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+      margin-top: 16px;
+    }
+
+    .preview-footer a {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: 0.25s;
+    }
+
+    .preview-footer a:hover {
+      color: var(--accent-cyan);
+    }
+
+    /* =================== FOOTER =================== */
+    .footer {
+      text-align: center;
+      padding: 28px 20px;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 14px;
+      position: relative;
+      z-index: 2;
+      background: rgba(6, 8, 15, 0.8);
+    }
+
+    /* =================== ANIMATIONS =================== */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.25); opacity: 0.65; }
+    }
+
+    @keyframes floatImg {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.08); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =================== RESPONSIVE =================== */
+    @media (max-width: 992px) {
+      .header {
+        padding: 16px 28px;
+      }
+
+      .hero-section {
+        flex-direction: column-reverse;
+        text-align: center;
+      }
+
+      .home-content h1 {
+        font-size: 46px;
+      }
+
+      .typing-wrapper,
+      .hero-buttons,
+      .quick-socials {
+        justify-content: center;
+      }
+
+      .home-img {
+        width: 280px;
+        height: 300px;
+      }
+
+      .expertise-grid,
+      .projects-preview-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .navbar {
+        position: fixed;
+        top: 67px;
+        left: -100%;
+        width: 100%;
+        background: rgba(10, 14, 24, 0.96);
+        border-bottom: 1px solid var(--border-subtle);
+        border-radius: 0;
+        flex-direction: column;
+        padding: 24px 0;
+        gap: 12px;
+        transition: left 0.3s ease;
+        backdrop-filter: blur(16px);
+      }
+
+      .navbar.open {
+        left: 0;
+      }
+
+      .container {
+        padding: 0 20px;
+      }
+
+      .home-content h1 {
+        font-size: 38px;
+      }
+
+      .typing-wrapper {
+        font-size: 18px;
+      }
+
+      .expertise-grid,
+      .projects-preview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- AMBIENT SAAS AURORA & GRID -->
+  <div class="ambient-bg">
+    <div class="orb-1 aurora-orb"></div>
+    <div class="orb-2 aurora-orb"></div>
+    <div class="orb-3 aurora-orb"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">SM</div>
+      Stuart Mzimba <span>dev</span>
+    </a>
+    <nav class="navbar" id="navbar">
+      <a href="index.html" class="active">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="Background.html">Background</a>
+      <a href="contacts.html">Contacts</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cmd-trigger-btn" data-open-cmd title="Open Command Palette (Ctrl+K)">
+        <i class='bx bx-search'></i>
+        <span>Command</span>
+        <span class="cmd-kbd">Ctrl K</span>
+      </button>
+      <button class="cv-header-btn" data-open-cv>
+        <i class='bx bx-file'></i> CV / Resume
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        <i class='bx bx-menu'></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <section class="home" id="home">
+      <div class="hero-section">
+        <div class="home-content">
+          <div class="status-pill">
+            <span class="pulse-dot"></span>
+            <span>Final-Year BICT @ UMP &bull; Mbombela, SA</span>
+          </div>
+          <h1>Building intelligent, modern software.</h1>
+          <div class="typing-wrapper">
+            <span id="typedText">Full-Stack Developer</span><span class="cursor"></span>
+          </div>
+          <p>
+            Hi, I'm <strong>Stuart Mzimba</strong> — a final-year BICT student at the University of Mpumalanga (Expected 2027). Proficient in <strong>Python, Java, JavaScript, Kotlin, and SQL</strong>, building clean web &amp; mobile applications and AI-powered systems.
+          </p>
+          <div class="hero-buttons">
+            <a href="projects.html" class="btn">
+              <i class='bx bx-layer'></i> View Projects
+            </a>
+            <button class="btn btn-secondary" data-open-cv style="cursor:pointer;">
+              <i class='bx bx-file'></i> View / Download CV
+            </button>
+            <a href="contacts.html" class="btn btn-secondary">
+              <i class='bx bx-envelope'></i> Get in Touch
+            </a>
+          </div>
+          <div class="quick-socials">
+            <a href="https://github.com/stuartmzimba" target="_blank" rel="noopener noreferrer" title="GitHub (@stuartmzimba)">
+              <i class='bx bxl-github'></i>
+            </a>
+            <a href="https://www.linkedin.com/in/stuart-mzimba-95836832a/" target="_blank" rel="noopener noreferrer" title="LinkedIn (Stuart Mzimba)">
+              <i class='bx bxl-linkedin'></i>
+            </a>
+            <a href="mailto:stuartmzimba@gmail.com" title="Email Stuart">
+              <i class='bx bx-envelope'></i>
+            </a>
+            <a href="tel:0766696948" title="Call Stuart">
+              <i class='bx bx-phone'></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="home-img-wrapper">
+          <div class="home-img">
+            <img src="stewie.jpg" alt="Stuart Mzimba - Developer Portrait">
+          </div>
+        </div>
+      </div>
+
+      <!-- TECHNICAL EXPERTISE -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title"><i class='bx bx-cube-alt'></i> Technical Expertise</h2>
+          <p class="section-subtitle">Core engineering capabilities across the stack</p>
+        </div>
+        <a href="Background.html#skills" class="view-all-link">
+          Full Tech Stack <i class='bx bx-right-arrow-alt'></i>
+        </a>
+      </div>
+
+      <div class="expertise-grid">
+        <div class="expertise-card" id="skills">
+          <div class="card-icon-box"><i class='bx bx-code-alt'></i></div>
+          <h3>Frontend Engineering</h3>
+          <p>Designing responsive, accessible, and high-performance user interfaces with modern component architectures.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+          </div>
+        </div>
+
+        <div class="expertise-card">
+          <div class="card-icon-box"><i class='bx bx-server'></i></div>
+          <h3>Backend, Mobile &amp; Databases</h3>
+          <p>Developing robust APIs, object-oriented Java &amp; Kotlin applications, and relational or cloud-native database schemas.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">Kotlin</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">SQL / MySQL</span>
+          </div>
+        </div>
+
+        <div class="expertise-card">
+          <div class="card-icon-box"><i class='bx bx-brain'></i></div>
+          <h3>AI &amp; Data Science</h3>
+          <p>IBM CognitiveClass.ai certified in Data Science 101 &amp; Tools—building hybrid recommendation engines and AI tools.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Data Science</span>
+            <span class="skill-tag">Machine Learning</span>
+            <span class="skill-tag">FP-Growth</span>
+            <span class="skill-tag">IBM Certified</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEATURED GITHUB PROJECTS -->
+      <div class="featured-projects" id="projects">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title"><i class='bx bxl-github'></i> Featured Projects</h2>
+            <p class="section-subtitle">Synced directly with <strong>@stuartmzimba</strong> on GitHub</p>
+          </div>
+          <a href="projects.html" class="view-all-link">
+            Explore All Projects <i class='bx bx-right-arrow-alt'></i>
+          </a>
+        </div>
+
+        <div class="projects-preview-grid">
+          <!-- Project 1: AI Code Tutor -->
+          <div class="preview-card">
+            <div>
+              <div class="preview-top">
+                <div class="preview-icon"><i class='bx bx-bot'></i></div>
+                <span class="preview-lang">Live on Vercel &bull; AI</span>
+              </div>
+              <h3>AI Code Tutor (BICT131)</h3>
+              <p>
+                Interactive AI-powered coding tutor and debugging assistant deployed on Vercel that explains programming concepts, reviews code snippets, and guides learners step-by-step.
+              </p>
+              <div class="skill-tags">
+                <span class="skill-tag">AI / LLM</span>
+                <span class="skill-tag">Code Analysis</span>
+                <span class="skill-tag">Vercel</span>
+              </div>
+            </div>
+            <div class="preview-footer">
+              <a href="https://bict131-code-tutor.vercel.app" target="_blank" rel="noopener noreferrer">
+                <i class='bx bx-globe'></i> Live Demo
+              </a>
+              <a href="https://github.com/stuartmzimba/ai-code-tutor" target="_blank" rel="noopener noreferrer">
+                <i class='bx bxl-github'></i> Source
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 2: Job Finder -->
+          <div class="preview-card">
+            <div>
+              <div class="preview-top">
+                <div class="preview-icon"><i class='bx bx-briefcase-alt-2'></i></div>
+                <span class="preview-lang">Live on Railway &bull; Jakarta EE</span>
+              </div>
+              <h3>Youth Job &amp; Internship Finder</h3>
+              <p>
+                Jakarta EE 10 web platform deployed on Railway connecting students with legitimate companies through automated URL vetting, student reviews, and admin oversight.
+              </p>
+              <div class="skill-tags">
+                <span class="skill-tag">Jakarta EE 10</span>
+                <span class="skill-tag">Java 17</span>
+                <span class="skill-tag">Railway</span>
+              </div>
+            </div>
+            <div class="preview-footer">
+              <a href="https://job-finder-production-0c08.up.railway.app" target="_blank" rel="noopener noreferrer">
+                <i class='bx bx-globe'></i> Live Demo
+              </a>
+              <a href="https://github.com/stuartmzimba/Job-Finder" target="_blank" rel="noopener noreferrer">
+                <i class='bx bxl-github'></i> Source
+              </a>
+            </div>
+          </div>
+
+          <!-- Project 3: Hybrid Music Recommendation System -->
+          <div class="preview-card">
+            <div>
+              <div class="preview-top">
+                <div class="preview-icon"><i class='bx bx-headphone'></i></div>
+                <span class="preview-lang">Live on Railway &bull; Python &amp; ML</span>
+              </div>
+              <h3>Hybrid Music Recommendation System</h3>
+              <p>
+                Hybrid recommender system featuring an Apple Music Clean UI, FastAPI backend, FP-Growth association rules mining, and acoustic feature vectors.
+              </p>
+              <div class="skill-tags">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">FP-Growth</span>
+                <span class="skill-tag">Railway</span>
+              </div>
+            </div>
+            <div class="preview-footer">
+              <a href="https://music-recommender-production-9141.up.railway.app" target="_blank" rel="noopener noreferrer">
+                <i class='bx bx-globe'></i> Live Demo
+              </a>
+              <a href="https://github.com/stuartmzimba/music-recommendation-system" target="_blank" rel="noopener noreferrer">
+                <i class='bx bxl-github'></i> Source
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 Stuart Mzimba &bull; Built with precision. All rights reserved.</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Mobile Hamburger Menu
+    const menuToggle = document.getElementById('menuToggle');
+    const navbar = document.getElementById('navbar');
+    menuToggle.addEventListener('click', () => {
+      navbar.classList.toggle('open');
+      const icon = menuToggle.querySelector('i');
+      icon.className = navbar.classList.contains('open') ? 'bx bx-x' : 'bx bx-menu';
+    });
+
+    // Dynamic Typing Effect
+    const roles = [
+      "Full-Stack Developer",
+      "Python & Java Engineer",
+      "AI & Data Enthusiast",
+      "BICT Student @ UMP"
+    ];
+    let roleIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    const typedTextEl = document.getElementById("typedText");
+
+    function typeRole() {
+      const currentRole = roles[roleIdx];
+      if (isDeleting) {
+        charIdx--;
+      } else {
+        charIdx++;
+      }
+
+      typedTextEl.textContent = currentRole.substring(0, charIdx);
+
+      let speed = isDeleting ? 40 : 85;
+
+      if (!isDeleting && charIdx === currentRole.length) {
+        speed = 2200;
+        isDeleting = true;
+      } else if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        roleIdx = (roleIdx + 1) % roles.length;
+        speed = 350;
+      }
+
+      setTimeout(typeRole, speed);
+    }
+
+    setTimeout(typeRole, 1500);
+  </script>
+  <script src="portfolio-enhancements.js"></script>
+</body>
+</html>

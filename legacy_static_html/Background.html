@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stuart Mzimba | Background &amp; CV</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="portfolio-enhancements.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-base: #06080f;
+      --bg-surface: rgba(15, 20, 32, 0.68);
+      --bg-surface-hover: rgba(22, 29, 46, 0.88);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-indigo: #6366f1;
+      --accent-cyan: #06b6d4;
+      --accent-violet: #8b5cf6;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-highlight: rgba(99, 102, 241, 0.45);
+      --gradient-brand: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+      --gradient-text: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #67e8f9 100%);
+      --shadow-glow: 0 20px 50px -15px rgba(99, 102, 241, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      text-decoration: none;
+      list-style: none;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.65;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* =================== AMBIENT AURORA & GRID BACKGROUND =================== */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 25%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 25%, #000 40%, transparent 100%);
+    }
+
+    .aurora-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      opacity: 0.4;
+      animation: floatOrb 14s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--accent-indigo), transparent 70%);
+      top: -150px;
+      right: -80px;
+    }
+
+    .orb-2 {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, var(--accent-cyan), transparent 70%);
+      bottom: 10%;
+      left: -120px;
+      animation-delay: -6s;
+    }
+
+    /* =================== HEADER & NAVBAR =================== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 16px 60px;
+      background: rgba(6, 8, 15, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--gradient-brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .logo span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      padding: 5px;
+      border-radius: 12px;
+    }
+
+    .navbar a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .navbar a:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .navbar a.active {
+      color: #ffffff;
+      background: rgba(99, 102, 241, 0.18);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      box-shadow: 0 2px 10px rgba(99, 102, 241, 0.2);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      color: var(--text-primary);
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    /* =================== MAIN CONTENT =================== */
+    .container {
+      max-width: 1040px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 120px 32px 70px;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 45px;
+      animation: fadeInDown 0.6s ease forwards;
+    }
+
+    .page-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #c7d2fe;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      padding: 6px 15px;
+      border-radius: 50px;
+      margin-bottom: 14px;
+    }
+
+    .page-header h1 {
+      font-size: 46px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .page-header p {
+      color: var(--text-secondary);
+      font-size: 16.5px;
+      max-width: 620px;
+      margin: 0 auto 24px;
+    }
+
+    .cv-banner-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-gradient {
+      background: var(--gradient-brand);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.45);
+    }
+
+    .btn-gradient:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .btn-glass {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+    }
+
+    .btn-glass:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    section {
+      margin-bottom: 52px;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+
+    .section-heading i {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 26px;
+    }
+
+    /* =================== CARDS =================== */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: var(--shadow-glow);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(16px);
+    }
+
+    .card:hover {
+      background: var(--bg-surface-hover);
+      border-color: var(--border-highlight);
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .profile-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .meta-chip i {
+      color: var(--accent-cyan);
+      font-size: 16px;
+    }
+
+    /* =================== EDUCATION & CERTIFICATES GRID =================== */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .edu-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 28px;
+      border-radius: 18px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--gradient-brand);
+    }
+
+    .edu-card:hover {
+      background: var(--bg-surface-hover);
+      border-color: var(--border-highlight);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .edu-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-bottom: 14px;
+    }
+
+    .edu-card h3 {
+      color: var(--text-primary);
+      font-size: 18.5px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .edu-card p {
+      margin-bottom: 8px;
+      font-size: 14.5px;
+      color: var(--text-secondary);
+    }
+
+    .edu-card p strong {
+      color: #e2e8f0;
+    }
+
+    /* =================== TECHNICAL PROFICIENCY MATRIX =================== */
+    .skills-categories {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .skill-group {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 26px;
+      backdrop-filter: blur(16px);
+      transition: 0.3s;
+    }
+
+    .skill-group:hover {
+      background: var(--bg-surface-hover);
+      border-color: var(--border-highlight);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .skill-group h4 {
+      color: var(--text-primary);
+      font-size: 16.5px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skill-group h4 i {
+      color: var(--accent-cyan);
+      font-size: 20px;
+    }
+
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      color: #e2e8f0;
+      font-size: 13.5px;
+      font-family: 'JetBrains Mono', monospace;
+      transition: all 0.25s ease;
+    }
+
+    .skill-pill i {
+      color: #818cf8;
+      font-size: 17px;
+    }
+
+    .skill-pill:hover {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.4);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* =================== FOOTER =================== */
+    .footer {
+      text-align: center;
+      padding: 28px 20px;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 14px;
+      position: relative;
+      z-index: 2;
+      background: rgba(6, 8, 15, 0.8);
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.08); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .header { padding: 16px 28px; }
+      .menu-toggle { display: block; }
+      .navbar {
+        position: fixed;
+        top: 67px;
+        left: -100%;
+        width: 100%;
+        background: rgba(10, 14, 24, 0.96);
+        border-bottom: 1px solid var(--border-subtle);
+        border-radius: 0;
+        flex-direction: column;
+        padding: 24px 0;
+        gap: 12px;
+        transition: left 0.3s ease;
+        backdrop-filter: blur(16px);
+      }
+      .navbar.open { left: 0; }
+      .container { padding: 110px 20px 50px; }
+      .page-header h1 { font-size: 34px; }
+      .edu-grid, .skills-categories { grid-template-columns: 1fr; }
+      .card { padding: 24px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- AMBIENT SAAS AURORA & GRID -->
+  <div class="ambient-bg">
+    <div class="orb-1 aurora-orb"></div>
+    <div class="orb-2 aurora-orb"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">SM</div>
+      Stuart Mzimba <span>dev</span>
+    </a>
+    <nav class="navbar" id="navbar">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="Background.html" class="active">Background</a>
+      <a href="contacts.html">Contacts</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cmd-trigger-btn" data-open-cmd title="Open Command Palette (Ctrl+K)">
+        <i class='bx bx-search'></i>
+        <span>Command</span>
+        <span class="cmd-kbd">Ctrl K</span>
+      </button>
+      <button class="cv-header-btn" data-open-cv>
+        <i class='bx bx-file'></i> CV / Resume
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        <i class='bx bx-menu'></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="page-header">
+      <div class="page-badge">
+        <i class='bx bx-id-card'></i> CURRICULUM VITAE &amp; BACKGROUND
+      </div>
+      <h1>Profile &amp; Qualifications</h1>
+      <p>Academic background, IBM Data Science certifications, and full-stack software engineering capabilities.</p>
+      <div class="cv-banner-actions">
+        <button class="btn-action btn-gradient" data-open-cv>
+          <i class='bx bx-show'></i> Preview Interactive CV
+        </button>
+        <a href="Stuart_Mzimba_CV.pdf" download="Stuart_Mzimba_CV.pdf" class="btn-action btn-glass">
+          <i class='bx bx-download'></i> Download Official CV (PDF)
+        </a>
+      </div>
+    </div>
+
+    <!-- Executive Profile Section -->
+    <section id="about">
+      <h2 class="section-heading"><i class='bx bx-user-circle'></i> Executive Profile</h2>
+      <div class="card">
+        <p>
+          Final-year <strong>Bachelor of Information and Communication Technology</strong> student at the <strong>University of Mpumalanga</strong>, expected to graduate in <strong>2027</strong>. I possess a strong foundation in software development, web and mobile application development, database management, and problem-solving through academic and personal projects.
+        </p>
+        <p>
+          Proficient in <strong>Python, Java, JavaScript, Kotlin, and SQL</strong>, with a deep commitment to developing clean, efficient, and maintainable software solutions. Adaptable, eager to learn, and focused on contributing to innovative engineering teams and real-world digital products.
+        </p>
+        <div class="profile-meta-row">
+          <span class="meta-chip"><i class='bx bx-map'></i> Mbombela West Acres, Mpumalanga, SA</span>
+          <span class="meta-chip"><i class='bx bx-buildings'></i> University of Mpumalanga</span>
+          <span class="meta-chip"><i class='bx bx-globe'></i> South African</span>
+          <span class="meta-chip"><i class='bx bx-conversation'></i> English &bull; SiSwati &bull; isiZulu</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+      <h2 class="section-heading"><i class='bx bxs-graduation'></i> Academic Education</h2>
+
+      <div class="edu-grid">
+        <div class="edu-card">
+          <span class="edu-badge"><i class='bx bx-calendar'></i> Expected Graduation: 2027</span>
+          <h3>Bachelor of Information &amp; Communication Technology</h3>
+          <p><strong>Institution:</strong> University of Mpumalanga (Mbombela, South Africa)</p>
+          <p><strong>Status:</strong> Final-Year BICT Student</p>
+          <p><strong>Core Focus:</strong> Software Development, Web &amp; Mobile Application Development, Database Management, AI &amp; Cybersecurity</p>
+        </div>
+
+        <div class="edu-card">
+          <span class="edu-badge"><i class='bx bx-check-circle'></i> Graduated 2023</span>
+          <h3>National Senior Certificate (High School)</h3>
+          <p><strong>Institution:</strong> Mjokwane Secondary School</p>
+          <p><strong>Completed:</strong> 2023</p>
+          <p><strong>Highlights:</strong> Excelled in Computer Studies, Mathematics, and Physical Sciences</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications & Courses -->
+    <section id="certifications">
+      <h2 class="section-heading"><i class='bx bx-award'></i> Certifications &amp; Courses</h2>
+
+      <div class="edu-grid">
+        <div class="edu-card">
+          <span class="edu-badge"><i class='bx bx-badge-check'></i> Certified &bull; CognitiveClass.ai</span>
+          <h3>Data Science 101</h3>
+          <p><strong>Issuer:</strong> IBM Developer Skills Network (CognitiveClass.ai)</p>
+          <p><strong>Focus:</strong> Data science methodology, analytical problem solving, and foundational data workflows.</p>
+        </div>
+
+        <div class="edu-card">
+          <span class="edu-badge"><i class='bx bx-badge-check'></i> Certified &bull; CognitiveClass.ai</span>
+          <h3>Data Science Tools</h3>
+          <p><strong>Issuer:</strong> IBM Developer Skills Network (CognitiveClass.ai)</p>
+          <p><strong>Focus:</strong> Python data science notebooks, open-source analytics environments, and data engineering tooling.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Proficiency -->
+    <section id="skills">
+      <h2 class="section-heading"><i class='bx bx-layer'></i> Technical &amp; Core Skills</h2>
+      <div class="skills-categories">
+        <div class="skill-group">
+          <h4><i class='bx bx-terminal'></i> Programming Languages</h4>
+          <div class="skill-pills">
+            <span class="skill-pill"><i class='bx bxl-python'></i> Python</span>
+            <span class="skill-pill"><i class='bx bxl-java'></i> Java</span>
+            <span class="skill-pill"><i class='bx bxl-javascript'></i> JavaScript</span>
+            <span class="skill-pill"><i class='bx bx-mobile-alt'></i> Kotlin</span>
+            <span class="skill-pill"><i class='bx bx-data'></i> SQL</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4><i class='bx bx-code-block'></i> Web &amp; Application Development</h4>
+          <div class="skill-pills">
+            <span class="skill-pill"><i class='bx bxl-react'></i> React</span>
+            <span class="skill-pill"><i class='bx bxl-nodejs'></i> Node.js</span>
+            <span class="skill-pill"><i class='bx bxl-html5'></i> Front-End Web</span>
+            <span class="skill-pill"><i class='bx bx-devices'></i> Mobile Apps</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4><i class='bx bx-server'></i> Databases, Data Science &amp; Tools</h4>
+          <div class="skill-pills">
+            <span class="skill-pill"><i class='bx bx-cylinder'></i> Database Management</span>
+            <span class="skill-pill"><i class='bx bxl-firebase'></i> Firebase &amp; MySQL</span>
+            <span class="skill-pill"><i class='bx bx-brain'></i> Data Science</span>
+            <span class="skill-pill"><i class='bx bxl-git'></i> Git &amp; GitHub</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4><i class='bx bx-group'></i> Professional &amp; Workplace</h4>
+          <div class="skill-pills">
+            <span class="skill-pill"><i class='bx bx-check-shield'></i> Problem-Solving</span>
+            <span class="skill-pill"><i class='bx bx-user-Check'></i> Teamwork</span>
+            <span class="skill-pill"><i class='bx bx-bulb'></i> Creative &amp; Adaptable</span>
+            <span class="skill-pill"><i class='bx bxl-microsoft'></i> MS Office Suite</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interests & Reference -->
+    <section id="interests">
+      <h2 class="section-heading"><i class='bx bx-compass'></i> Interests &amp; Reference</h2>
+      <div class="edu-grid">
+        <div class="card">
+          <h3 style="font-size:18px; margin-bottom:10px; color:#fff;">Engineering Interests</h3>
+          <p>
+            &bull; Developing Mobile Apps and Modern Web Applications<br>
+            &bull; Learning New Programming Technologies &amp; AI Frameworks<br>
+            &bull; Solving Real-World Problems Through Technology
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 style="font-size:18px; margin-bottom:10px; color:#fff;">Reference</h3>
+          <p>
+            <strong>B.P. Ngomane</strong> — Uncle<br>
+            <strong>Phone:</strong> <a href="tel:0769877545" style="color:var(--accent-cyan);">076 987 7545</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 Stuart Mzimba &bull; Built with precision. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navbar = document.getElementById('navbar');
+    menuToggle.addEventListener('click', () => {
+      navbar.classList.toggle('open');
+      const icon = menuToggle.querySelector('i');
+      icon.className = navbar.classList.contains('open') ? 'bx bx-x' : 'bx bx-menu';
+    });
+  </script>
+  <script src="portfolio-enhancements.js"></script>
+</body>
+</html>

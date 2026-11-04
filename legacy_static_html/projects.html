@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stuart Mzimba | Projects</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="portfolio-enhancements.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-base: #06080f;
+      --bg-surface: rgba(15, 20, 32, 0.68);
+      --bg-surface-hover: rgba(22, 29, 46, 0.88);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-indigo: #6366f1;
+      --accent-cyan: #06b6d4;
+      --accent-violet: #8b5cf6;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-highlight: rgba(99, 102, 241, 0.45);
+      --gradient-brand: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+      --gradient-text: linear-gradient(135deg, #ffffff 0%, #c7d2fe 50%, #67e8f9 100%);
+      --shadow-glow: 0 20px 50px -15px rgba(99, 102, 241, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      text-decoration: none;
+      list-style: none;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.65;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* =================== AMBIENT AURORA & GRID BACKGROUND =================== */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 25%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 25%, #000 40%, transparent 100%);
+    }
+
+    .aurora-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(110px);
+      opacity: 0.4;
+      animation: floatOrb 14s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--accent-indigo), transparent 70%);
+      top: -150px;
+      left: -80px;
+    }
+
+    .orb-2 {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, var(--accent-cyan), transparent 70%);
+      top: 20%;
+      right: -120px;
+      animation-delay: -6s;
+    }
+
+    /* =================== HEADER & NAVBAR =================== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 16px 60px;
+      background: rgba(6, 8, 15, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--gradient-brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+
+    .logo span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      padding: 5px;
+      border-radius: 12px;
+    }
+
+    .navbar a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 8px;
+      transition: all 0.25s ease;
+    }
+
+    .navbar a:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .navbar a.active {
+      color: #ffffff;
+      background: rgba(99, 102, 241, 0.18);
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      box-shadow: 0 2px 10px rgba(99, 102, 241, 0.2);
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      color: var(--text-primary);
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    /* =================== MAIN CONTAINER =================== */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1180px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 120px 32px 70px;
+      flex: 1;
+    }
+
+    /* =================== PAGE HERO =================== */
+    .projects-hero {
+      text-align: center;
+      margin-bottom: 45px;
+      animation: fadeInDown 0.6s ease forwards;
+    }
+
+    .terminal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #c7d2fe;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 2s infinite;
+    }
+
+    .projects-hero h1 {
+      font-size: 46px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .projects-hero p {
+      font-size: 16.5px;
+      color: var(--text-secondary);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* =================== GITHUB PROFILE BANNER =================== */
+    .github-banner {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 34px;
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .gh-profile-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .gh-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 2px solid rgba(99, 102, 241, 0.5);
+      object-fit: cover;
+    }
+
+    .gh-details h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gh-details h3 i {
+      color: #a5b4fc;
+    }
+
+    .gh-details p {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .gh-stats {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .gh-stat-item {
+      text-align: center;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: 11px;
+    }
+
+    .gh-stat-item .stat-num {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .gh-stat-item .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .gh-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      background: var(--gradient-brand);
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 10px;
+      transition: 0.3s;
+      box-shadow: 0 8px 20px -5px rgba(99, 102, 241, 0.45);
+    }
+
+    .gh-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    /* =================== CONTROLS: FILTER & SEARCH =================== */
+    .controls-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filter-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .filter-btn.active {
+      background: var(--gradient-brand);
+      color: #fff;
+      border-color: transparent;
+      font-weight: 600;
+      box-shadow: 0 6px 18px -4px rgba(99, 102, 241, 0.45);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 260px;
+      flex: 1;
+      max-width: 340px;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 18px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 16px 10px 42px;
+      background: rgba(15, 20, 32, 0.75);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-size: 14px;
+      outline: none;
+      transition: 0.25s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-indigo);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+
+    /* =================== PROJECTS GRID =================== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 26px;
+      margin-bottom: 50px;
+    }
+
+    .project-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--gradient-brand);
+      opacity: 0.65;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      background: var(--bg-surface-hover);
+      border-color: var(--border-highlight);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .project-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Visual Mockup Preview Banner inside each Project Card */
+    .project-preview-banner {
+      background: linear-gradient(145deg, rgba(10, 14, 24, 0.95), rgba(20, 28, 48, 0.85));
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-window-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .win-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .win-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .win-dots span:nth-child(1) { background: #ef4444; }
+    .win-dots span:nth-child(2) { background: #f59e0b; }
+    .win-dots span:nth-child(3) { background: #10b981; }
+
+    .win-title {
+      font-size: 10.5px;
+      color: #64748b;
+    }
+
+    .preview-code-line {
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.55;
+    }
+
+    .preview-code-line .kw { color: #818cf8; }
+    .preview-code-line .fn { color: #67e8f9; }
+    .preview-code-line .str { color: #6ee7b7; }
+
+    .arch-flow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      padding: 12px 14px;
+      border-radius: 12px;
+    }
+
+    .arch-step {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #e2e8f0;
+      background: rgba(99, 102, 241, 0.14);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+
+    .arch-arrow {
+      color: var(--accent-cyan);
+      font-size: 16px;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.28);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #818cf8;
+    }
+
+    .lang-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 11px;
+      border-radius: 50px;
+      background: rgba(6, 182, 212, 0.1);
+      color: #67e8f9;
+      border: 1px solid rgba(6, 182, 212, 0.25);
+    }
+
+    .lang-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+    }
+
+    .project-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      transition: color 0.25s;
+    }
+
+    .project-card:hover .project-title {
+      color: #67e8f9;
+    }
+
+    .project-desc {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.65;
+    }
+
+    .project-highlights {
+      margin-bottom: 20px;
+    }
+
+    .project-highlights li {
+      font-size: 13.5px;
+      color: #cbd5e1;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .project-highlights li i {
+      color: var(--accent-cyan);
+      font-size: 16px;
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 22px;
+    }
+
+    .tech-tag {
+      font-size: 11.5px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .card-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+      gap: 12px;
+    }
+
+    .repo-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      white-space: nowrap;
+    }
+
+    .repo-meta-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .repo-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .repo-meta i {
+      color: #818cf8;
+      font-size: 14px;
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 8px;
+    }
+
+    .btn-card {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 8px 10px;
+      border-radius: 9px;
+      font-size: 12.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary {
+      background: var(--gradient-brand);
+      border: 1px solid transparent;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    /* =================== PROJECT MODAL =================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 6, 12, 0.82);
+      backdrop-filter: blur(10px);
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #0d1322;
+      border: 1px solid var(--border-highlight);
+      border-radius: 20px;
+      max-width: 660px;
+      width: 100%;
+      padding: 34px;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+      animation: fadeInUp 0.25s ease forwards;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 24px;
+      color: var(--text-primary);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .modal-body p {
+      color: var(--text-secondary);
+      font-size: 15px;
+      margin-bottom: 22px;
+      line-height: 1.7;
+    }
+
+    .modal-section-title {
+      font-size: 13px;
+      color: var(--accent-cyan);
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    /* =================== EMPTY STATE =================== */
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      background: var(--bg-surface);
+      border: 1px dashed var(--border-subtle);
+      border-radius: 18px;
+      display: none;
+    }
+
+    .empty-state i {
+      font-size: 44px;
+      color: var(--accent-indigo);
+      margin-bottom: 12px;
+    }
+
+    /* =================== FOOTER =================== */
+    .footer {
+      text-align: center;
+      padding: 28px 20px;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 14px;
+      position: relative;
+      z-index: 2;
+      background: rgba(6, 8, 15, 0.8);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.25); opacity: 0.65; }
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 30px) scale(1.08); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 992px) {
+      .header { padding: 16px 28px; }
+      .container { padding: 110px 24px 50px; }
+      .projects-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .navbar {
+        position: fixed;
+        top: 67px;
+        left: -100%;
+        width: 100%;
+        background: rgba(10, 14, 24, 0.96);
+        border-bottom: 1px solid var(--border-subtle);
+        border-radius: 0;
+        flex-direction: column;
+        padding: 24px 0;
+        gap: 12px;
+        transition: left 0.3s ease;
+        backdrop-filter: blur(16px);
+      }
+      .navbar.open { left: 0; }
+      .projects-hero h1 { font-size: 34px; }
+      .github-banner { flex-direction: column; text-align: center; }
+      .gh-profile-info { flex-direction: column; }
+      .gh-stats { justify-content: center; }
+      .controls-bar { flex-direction: column; align-items: stretch; }
+      .search-box { max-width: 100%; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- AMBIENT SAAS AURORA & GRID -->
+  <div class="ambient-bg">
+    <div class="orb-1 aurora-orb"></div>
+    <div class="orb-2 aurora-orb"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">SM</div>
+      Stuart Mzimba <span>dev</span>
+    </a>
+    <nav class="navbar" id="navbar">
+      <a href="index.html">Home</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="Background.html">Background</a>
+      <a href="contacts.html">Contacts</a>
+    </nav>
+    <div class="header-actions">
+      <button class="cmd-trigger-btn" data-open-cmd title="Open Command Palette (Ctrl+K)">
+        <i class='bx bx-search'></i>
+        <span>Command</span>
+        <span class="cmd-kbd">Ctrl K</span>
+      </button>
+      <button class="cv-header-btn" data-open-cv>
+        <i class='bx bx-file'></i> CV / Resume
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        <i class='bx bx-menu'></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <!-- HERO -->
+    <div class="projects-hero">
+      <div class="terminal-badge">
+        <span class="pulse-dot"></span>
+        <span id="syncStatus">LIVE SYNC: github.com/stuartmzimba</span>
+      </div>
+      <h1>Engineering &amp; Projects</h1>
+      <p>
+        Explore my software engineering, machine learning, and full-stack repositories synced directly with my GitHub profile.
+      </p>
+    </div>
+
+    <!-- GITHUB PROFILE BANNER -->
+    <div class="github-banner">
+      <div class="gh-profile-info">
+        <img src="https://avatars.githubusercontent.com/u/263473780?v=4" alt="Stuart Mzimba GitHub Avatar" class="gh-avatar" onerror="this.src='stewie.jpg'" />
+        <div class="gh-details">
+          <h3><i class='bx bxl-github'></i> Stuart Mzimba</h3>
+          <p>@stuartmzimba &bull; University of Mpumalanga (BICT)</p>
+        </div>
+      </div>
+
+      <div class="gh-stats">
+        <div class="gh-stat-item">
+          <span class="stat-num" id="repoCount">6</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="gh-stat-item">
+          <span class="stat-num">3+</span>
+          <span class="stat-label">Languages</span>
+        </div>
+        <a href="https://github.com/stuartmzimba" target="_blank" rel="noopener noreferrer" class="gh-btn">
+          <i class='bx bxl-github'></i> Follow on GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- FILTER & SEARCH CONTROLS -->
+    <div class="controls-bar">
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-btn active" data-filter="all">
+          <i class='bx bx-grid-alt'></i> All Projects
+        </button>
+        <button class="filter-btn" data-filter="ai">
+          <i class='bx bx-brain'></i> AI &amp; Data
+        </button>
+        <button class="filter-btn" data-filter="java">
+          <i class='bx bxl-java'></i> Java &amp; OOP
+        </button>
+        <button class="filter-btn" data-filter="python">
+          <i class='bx bxl-python'></i> Python
+        </button>
+        <button class="filter-btn" data-filter="web">
+          <i class='bx bx-code-block'></i> Web &amp; UI
+        </button>
+      </div>
+
+      <div class="search-box">
+        <i class='bx bx-search'></i>
+        <input type="text" id="projectSearch" placeholder="Search by name, tech, or topic..." />
+      </div>
+    </div>
+
+    <!-- PROJECTS GRID -->
+    <div class="projects-grid" id="projectsGrid"></div>
+
+    <!-- EMPTY SEARCH STATE -->
+    <div class="empty-state" id="emptyState">
+      <i class='bx bx-search-alt'></i>
+      <h3>No matching projects found</h3>
+      <p>Try clearing your search filter or selecting a different category.</p>
+    </div>
+  </div>
+
+  <!-- PROJECT DETAILS MODAL -->
+  <div class="modal-overlay" id="projectModal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeModal" aria-label="Close modal">
+        <i class='bx bx-x'></i>
+      </button>
+      <div class="modal-header">
+        <div class="project-icon" id="modalIcon">
+          <i class='bx bx-code-alt'></i>
+        </div>
+        <div>
+          <span class="lang-badge" id="modalLang">Python</span>
+          <h2 class="modal-title" id="modalTitle">Project Title</h2>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p id="modalDesc"></p>
+
+        <h4 class="modal-section-title">System Architecture &amp; Pipeline</h4>
+        <div class="arch-flow" id="modalArch"></div>
+
+        <h4 class="modal-section-title">Key Capabilities</h4>
+        <ul class="project-highlights" id="modalHighlights"></ul>
+
+        <h4 class="modal-section-title">Technologies Used</h4>
+        <div class="tech-stack" id="modalTech"></div>
+
+        <div class="card-footer" style="margin-top: 25px;">
+          <div class="repo-meta" id="modalMeta"></div>
+          <div class="card-actions" id="modalActions"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>&copy; 2026 Stuart Mzimba &bull; Built with precision. All rights reserved.</p>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Mobile Hamburger Menu
+    const menuToggle = document.getElementById('menuToggle');
+    const navbar = document.getElementById('navbar');
+    menuToggle.addEventListener('click', () => {
+      navbar.classList.toggle('open');
+      const icon = menuToggle.querySelector('i');
+      icon.className = navbar.classList.contains('open') ? 'bx bx-x' : 'bx bx-menu';
+    });
+
+    // Curated + GitHub Repository Data for @stuartmzimba
+    const curatedProjects = [
+      {
+        repoName: "ai-code-tutor",
+        aliases: ["aicodetutor", "ai-code-tutor", "ai_code_tutor", "code-tutor"],
+        title: "AI Code Tutor (BICT131)",
+        category: ["ai", "python", "web"],
+        language: "AI & Web",
+        icon: "bx-bot",
+        previewTitle: "bict131-code-tutor.vercel.app",
+        previewLines: [
+          "<span class='kw'>async def</span> <span class='fn'>analyze_code</span>(snippet, lang):",
+          "  ast_tree = <span class='fn'>parse_syntax</span>(snippet)",
+          "  <span class='kw'>return</span> <span class='str'>'Live on Vercel: Interactive Tutor'</span>"
+        ],
+        architecture: ["Code Input", "Syntax & AST Parser", "AI Reasoning Engine", "Vercel Live Web UI"],
+        description: "Interactive AI-powered coding tutor and debugging assistant deployed on Vercel that explains programming concepts, reviews code snippets, and guides BICT students step-by-step.",
+        highlights: [
+          "Live deployed web application (bict131-code-tutor.vercel.app) providing real-time code explanations and debugging help.",
+          "Tailors interactive programming hints and learning paths for students and developers.",
+          "Integrates modern AI prompting workflows with a clean, browser-accessible code interface."
+        ],
+        tech: ["AI / LLM", "JavaScript", "Python", "Code Analysis", "Vercel", "EdTech"],
+        githubUrl: "https://github.com/stuartmzimba/ai-code-tutor",
+        liveUrl: "https://bict131-code-tutor.vercel.app",
+        updated: "Nov 2026",
+        stars: 1,
+        forks: 0,
+        license: "Public Repo"
+      },
+      {
+        repoName: "Job-Finder",
+        aliases: ["jobfinder", "job-finder", "job_finder", "job-search"],
+        title: "Youth Job & Internship Finder",
+        category: ["web", "java"],
+        language: "Jakarta EE & Java",
+        icon: "bx-briefcase-alt-2",
+        previewTitle: "job-finder-production-0c08.up.railway.app",
+        previewLines: [
+          "<span class='kw'>@Singleton @Startup</span> <span class='fn'>CompanyDataInitializer</span>",
+          "company = <span class='fn'>verifyCompany</span>(employerUrl);",
+          "<span class='kw'>return</span> <span class='str'>'Live on Railway: Vetted Jobs'</span>;"
+        ],
+        architecture: ["Company Vetting Workflow", "Jakarta EE 10 + Payara", "Student Reviews & JPA", "Railway Cloud Live UI"],
+        description: "The Youth Job & Internship Finder is a Jakarta EE 10 web platform deployed on Railway designed to connect students with legitimate companies offering jobs and internships. Emphasizes trust, transparency, and accessibility through company vetting workflows, student reviews, and admin oversight.",
+        highlights: [
+          "Live deployed on Railway (Payara Micro 6 + Jakarta EE 10) with pre-seeded verified companies (Google, Amazon) and 20+ internship/job listings.",
+          "Enforces trust and transparency through automated URL verification, multi-step company vetting workflows, and system admin oversight.",
+          "Empowers students with verified peer reviews, smart role filtering, CV upload/preview, and BCrypt role-based authentication."
+        ],
+        tech: ["Jakarta EE 10", "Java 17", "Payara Micro", "JPA / EclipseLink", "Railway", "BCrypt Security"],
+        githubUrl: "https://github.com/stuartmzimba/Job-Finder",
+        liveUrl: "https://job-finder-production-0c08.up.railway.app",
+        updated: "Nov 2026",
+        stars: 1,
+        forks: 0,
+        license: "Public Repo"
+      },
+      {
+        repoName: "music-recommendation-system",
+        aliases: ["music-recommendation-system"],
+        title: "Hybrid Music Recommendation System",
+        category: ["ai", "python", "web"],
+        language: "Python",
+        icon: "bx-headphone",
+        previewTitle: "music-recommender-production-9141.up.railway.app",
+        previewLines: [
+          "rules = <span class='fn'>fpgrowth</span>(playlists, min_sup=<span class='str'>0.02</span>)",
+          "sim = <span class='fn'>cosine_similarity</span>(acoustic_vecs)",
+          "<span class='kw'>return</span> <span class='fn'>hybrid_rank</span>(rules, sim)"
+        ],
+        architecture: ["Audio Feature Vectors", "FP-Growth Mining", "Hybrid Scoring Engine", "Apple Music Clean UI"],
+        description: "Hybrid Music Recommendation System featuring an Apple Music-inspired Clean UI, FastAPI backend, FP-Growth Association Rules mining (657 rules), and Acoustic Feature Vector similarity matching.",
+        highlights: [
+          "Combines collaborative pattern discovery (FP-Growth association rules) with content-based acoustic vector similarity.",
+          "Delivers personalized track recommendations through a sleek Apple Music-inspired web application.",
+          "Analyzes 8D audio feature vectors (tempo, energy, valence, acoustics) + TF-IDF matrices for cold-start and session-based discovery."
+        ],
+        tech: ["Python", "FastAPI", "FP-Growth", "Acoustic Vectors", "Railway", "Clean UI"],
+        githubUrl: "https://github.com/stuartmzimba/music-recommendation-system",
+        liveUrl: "https://music-recommender-production-9141.up.railway.app",
+        updated: "Nov 2026",
+        stars: 1,
+        forks: 0,
+        license: "Public Repo"
+      },
+      {
+        repoName: "StudentMarkApp2",
+        aliases: ["studentmarkapp2", "student-mark-app"],
+        title: "Student Mark Management System",
+        category: ["java"],
+        language: "Java",
+        icon: "bx-graduation",
+        previewTitle: "StudentMarkApp.java — OOP Engine",
+        previewLines: [
+          "<span class='kw'>public class</span> <span class='fn'>StudentMarkApp</span> {",
+          "  <span class='kw'>double</span> avg = student.<span class='fn'>computeAverage</span>();",
+          "  <span class='kw'>return</span> <span class='fn'>assignDistinction</span>(avg); }"
+        ],
+        architecture: ["Student Records Input", "Java OOP Domain Model", "Grade & GPA Calculator", "Academic Report Output"],
+        description: "Java object-oriented academic grade management application designed to record, compute, and analyze student assessment marks and performance metrics.",
+        highlights: [
+          "Built with clean Object-Oriented Programming (OOP) principles and modular Java classes.",
+          "Automates calculation of student averages, grade classifications, and pass/fail analytics.",
+          "Provides structured validation and reporting for academic record management."
+        ],
+        tech: ["Java", "OOP", "Data Structures", "Academic Analytics", "MIT License"],
+        githubUrl: "https://github.com/stuartmzimba/StudentMarkApp2",
+        updated: "Mar 2026",
+        stars: 0,
+        forks: 0,
+        license: "MIT License"
+      },
+      {
+        repoName: "first-repo",
+        aliases: ["first-repo"],
+        title: "Python Foundations & Algorithms",
+        category: ["python"],
+        language: "Python",
+        icon: "bx-terminal",
+        previewTitle: "algorithms.py — Core Python",
+        previewLines: [
+          "<span class='kw'>def</span> <span class='fn'>solve_problem</span>(data_stream):",
+          "  cleaned = [x <span class='kw'>for</span> x <span class='kw'>in</span> data_stream <span class='kw'>if</span> x]",
+          "  <span class='kw'>return</span> <span class='fn'>optimize</span>(cleaned)"
+        ],
+        architecture: ["Problem Specification", "Python Algorithm Design", "CLI Execution", "Git Version Control"],
+        description: "Foundational Python programming repository exploring core algorithms, scripting workflows, and Git version control best practices.",
+        highlights: [
+          "Demonstrates core Python syntax, control flow, and algorithmic problem solving.",
+          "Establishes clean Git and GitHub repository workflow under an MIT open-source license.",
+          "Serves as a sandbox for experimenting with Python automation and data manipulation."
+        ],
+        tech: ["Python", "Algorithms", "Git", "CLI", "MIT License"],
+        githubUrl: "https://github.com/stuartmzimba/first-repo",
+        updated: "Feb 2026",
+        stars: 0,
+        forks: 0,
+        license: "MIT License"
+      },
+      {
+        repoName: "portfolio",
+        aliases: ["portfolio"],
+        title: "Modern SaaS Developer Portfolio",
+        category: ["web"],
+        language: "JavaScript",
+        icon: "bx-layer",
+        previewTitle: "portfolio.js — GitHub REST Sync",
+        previewLines: [
+          "<span class='kw'>const</span> repos = <span class='kw'>await</span> <span class='fn'>fetchGitHub</span>(<span class='str'>'stuartmzimba'</span>);",
+          "<span class='fn'>renderGlassCards</span>(repos);",
+          "<span class='fn'>enableCommandPalette</span>(<span class='str'>'Ctrl+K'</span>);"
+        ],
+        architecture: ["GitHub REST API", "Dynamic JSON Merger", "SaaS Glassmorphism UI", "Ctrl+K Command Palette"],
+        description: "Modern SaaS dark-mode developer portfolio featuring ambient aurora glassmorphism, live GitHub REST API synchronization, and interactive project filtering.",
+        highlights: [
+          "Designed with a Linear/Vercel-inspired obsidian glassmorphism UI and ambient aurora mesh gradients.",
+          "Live integration with the GitHub REST API to automatically fetch and sync @stuartmzimba repositories.",
+          "Responsive layout with category filtering, instant search, and detailed project inspection modals."
+        ],
+        tech: ["HTML5", "CSS3", "JavaScript", "GitHub REST API", "Glassmorphism"],
+        githubUrl: "https://github.com/stuartmzimba",
+        liveUrl: "https://stuart-mzimba-portfolio.vercel.app",
+        updated: "Nov 2026",
+        stars: 1,
+        forks: 0,
+        license: "Custom"
+      }
+    ];
+
+    let allProjects = [...curatedProjects];
+    let activeFilter = "all";
+    let searchQuery = "";
+
+    const projectsGrid = document.getElementById("projectsGrid");
+    const emptyState = document.getElementById("emptyState");
+    const repoCountEl = document.getElementById("repoCount");
+    const syncStatusEl = document.getElementById("syncStatus");
+
+    function formatDate(isoString) {
+      if (!isoString) return "";
+      const date = new Date(isoString);
+      return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+    }
+
+    function renderProjects() {
+      const filtered = allProjects.filter(project => {
+        const matchesFilter = activeFilter === "all" || project.category.includes(activeFilter);
+        const q = searchQuery.toLowerCase().trim();
+        const matchesSearch = !q ||
+          project.title.toLowerCase().includes(q) ||
+          project.repoName.toLowerCase().includes(q) ||
+          project.description.toLowerCase().includes(q) ||
+          project.tech.some(t => t.toLowerCase().includes(q));
+        return matchesFilter && matchesSearch;
+      });
+
+      projectsGrid.innerHTML = "";
+
+      if (filtered.length === 0) {
+        emptyState.style.display = "block";
+        return;
+      }
+      emptyState.style.display = "none";
+
+      filtered.forEach((project, idx) => {
+        const card = document.createElement("div");
+        card.className = "project-card";
+        card.style.animationDelay = `${idx * 0.08}s`;
+
+        const highlightsHtml = project.highlights
+          .slice(0, 2)
+          .map(h => `<li><i class='bx bx-check-circle'></i><span>${h}</span></li>`)
+          .join("");
+
+        const techHtml = project.tech
+          .map(t => `<span class="tech-tag">${t}</span>`)
+          .join("");
+
+        const previewLinesHtml = (project.previewLines || [
+          `<span class='kw'>repo</span>: <span class='str'>'${project.repoName}'</span>`,
+          `<span class='fn'>status</span>: <span class='str'>'Active on GitHub'</span>`
+        ]).map(line => `<div class="preview-code-line">${line}</div>`).join("");
+
+        card.innerHTML = `
+          <div>
+            <div class="card-top">
+              <div class="project-icon">
+                <i class='bx ${project.icon}'></i>
+              </div>
+              <div class="card-badges">
+                <span class="lang-badge">
+                  <span class="lang-dot"></span> ${project.language}
+                </span>
+              </div>
+            </div>
+
+            <div class="project-preview-banner">
+              <div class="preview-window-bar">
+                <div class="win-dots"><span></span><span></span><span></span></div>
+                <span class="win-title">${project.previewTitle || project.repoName}</span>
+              </div>
+              ${previewLinesHtml}
+            </div>
+
+            <h3 class="project-title">${project.title}</h3>
+            <p class="project-desc">${project.description}</p>
+
+            <ul class="project-highlights">
+              ${highlightsHtml}
+            </ul>
+
+            <div class="tech-stack">
+              ${techHtml}
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <div class="repo-meta">
+              <div class="repo-meta-left">
+                <span title="Last Updated"><i class='bx bx-calendar'></i> ${project.updated}</span>
+                <span title="Stars"><i class='bx bx-star'></i> ${project.stars}</span>
+              </div>
+              ${project.liveUrl && project.liveUrl.startsWith('http')
+                ? `<span style="color:#67e8f9; font-size:11.5px;"><i class='bx bxs-circle' style="color:#10b981; font-size:8px;"></i> Live Deployed</span>`
+                : `<span><i class='bx bx-git-branch'></i> ${project.license || 'Public Repo'}</span>`
+              }
+            </div>
+            <div class="card-actions">
+              <button class="btn-card btn-outline" data-inspect="${project.repoName}">
+                <i class='bx bx-info-circle'></i> Details
+              </button>
+              ${project.liveUrl && project.liveUrl.startsWith('http') ? `
+              <a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-outline" style="border-color:rgba(6,182,212,0.45); color:#67e8f9;">
+                <i class='bx bx-link-external'></i> Live
+              </a>` : ''}
+              <a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-primary">
+                <i class='bx bxl-github'></i> GitHub
+              </a>
+            </div>
+          </div>
+        `;
+
+        projectsGrid.appendChild(card);
+      });
+
+      document.querySelectorAll("[data-inspect]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const repoName = btn.getAttribute("data-inspect");
+          const proj = allProjects.find(p => p.repoName === repoName);
+          if (proj) openProjectModal(proj);
+        });
+      });
+    }
+
+    // Modal Logic
+    const projectModal = document.getElementById("projectModal");
+    const closeModal = document.getElementById("closeModal");
+
+    function openProjectModal(proj) {
+      document.getElementById("modalIcon").innerHTML = `<i class='bx ${proj.icon}'></i>`;
+      document.getElementById("modalLang").innerHTML = `<span class="lang-dot"></span> ${proj.language}`;
+      document.getElementById("modalTitle").textContent = proj.title;
+      document.getElementById("modalDesc").textContent = proj.description;
+
+      const archSteps = proj.architecture || ["Input Layer", "Core Logic", "Data Store", "Output UI"];
+      document.getElementById("modalArch").innerHTML = archSteps
+        .map((step, i) => `<span class="arch-step">${step}</span>${i < archSteps.length - 1 ? "<i class='bx bx-right-arrow-alt arch-arrow'></i>" : ""}`)
+        .join("");
+
+      document.getElementById("modalHighlights").innerHTML = proj.highlights
+        .map(h => `<li><i class='bx bx-check-circle'></i><span>${h}</span></li>`)
+        .join("");
+
+      document.getElementById("modalTech").innerHTML = proj.tech
+        .map(t => `<span class="tech-tag">${t}</span>`)
+        .join("");
+
+      document.getElementById("modalMeta").innerHTML = `
+        <span><i class='bx bxl-git'></i> ${proj.repoName}</span>
+        <span><i class='bx bx-calendar'></i> Updated ${proj.updated}</span>
+        <span><i class='bx bx-shield-quarter'></i> ${proj.license || 'Public Repo'}</span>
+      `;
+
+      document.getElementById("modalActions").innerHTML = `
+        ${proj.liveUrl && proj.liveUrl.startsWith('http') ? `
+        <a href="${proj.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-outline" style="border-color:rgba(6,182,212,0.5); color:#67e8f9;">
+          <i class='bx bx-globe'></i> Launch Live App
+        </a>` : ''}
+        <a href="${proj.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn-card btn-primary">
+          <i class='bx bxl-github'></i> View Repository on GitHub
+        </a>
+      `;
+
+      projectModal.classList.add("open");
+    }
+
+    closeModal.addEventListener("click", () => projectModal.classList.remove("open"));
+    projectModal.addEventListener("click", (e) => {
+      if (e.target === projectModal) projectModal.classList.remove("open");
+    });
+
+    // Filter & Search Listeners
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeFilter = btn.getAttribute("data-filter");
+        renderProjects();
+      });
+    });
+
+    document.getElementById("projectSearch").addEventListener("input", (e) => {
+      searchQuery = e.target.value;
+      renderProjects();
+    });
+
+    // Live GitHub API Sync for @stuartmzimba
+    async function syncGitHubRepos() {
+      try {
+        const res = await fetch("https://api.github.com/users/stuartmzimba/repos?sort=updated&per_page=50");
+        if (!res.ok) throw new Error("GitHub API rate limit or offline");
+        const repos = await res.json();
+
+        repos.forEach(repo => {
+          const rName = repo.name.toLowerCase();
+          const existing = allProjects.find(
+            p => p.repoName.toLowerCase() === rName || (p.aliases && p.aliases.includes(rName))
+          );
+          if (existing) {
+            existing.stars = repo.stargazers_count ?? existing.stars;
+            existing.forks = repo.forks_count ?? existing.forks;
+            existing.githubUrl = repo.html_url || existing.githubUrl;
+            if (repo.homepage) existing.liveUrl = repo.homepage;
+            if (repo.updated_at) existing.updated = formatDate(repo.updated_at);
+            if (repo.description && repo.name !== "first-repo") {
+              existing.description = repo.description;
+            }
+          } else {
+            const lang = repo.language || "Code";
+            const cat = [];
+            if (lang.toLowerCase() === "python") cat.push("python", "ai");
+            else if (lang.toLowerCase() === "java") cat.push("java");
+            else cat.push("web");
+
+            allProjects.unshift({
+              repoName: repo.name,
+              title: repo.name.replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase()),
+              category: cat,
+              language: lang,
+              icon: "bx-git-repo-forked",
+              description: repo.description || `Public ${lang} repository by Stuart Mzimba on GitHub.`,
+              highlights: [
+                `Live repository synced automatically from @stuartmzimba on GitHub.`,
+                `Primary language: ${lang}.`
+              ],
+              tech: [lang, ...(repo.topics || []), "GitHub"],
+              githubUrl: repo.html_url,
+              updated: formatDate(repo.updated_at),
+              stars: repo.stargazers_count || 0,
+              forks: repo.forks_count || 0,
+              license: repo.license ? repo.license.name : "Public"
+            });
+          }
+        });
+
+        repoCountEl.textContent = allProjects.length;
+        syncStatusEl.textContent = `SYNCED LIVE: ${repos.length} GITHUB REPOS (@stuartmzimba)`;
+        renderProjects();
+      } catch (err) {
+        renderProjects();
+      }
+    }
+
+    renderProjects();
+    syncGitHubRepos();
+
+    // Open project modal if ?project= query parameter is present
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestedProj = urlParams.get("project");
+    if (requestedProj) {
+      const target = allProjects.find(p => p.repoName.toLowerCase() === requestedProj.toLowerCase());
+      if (target) setTimeout(() => openProjectModal(target), 200);
+    }
+  </script>
+  <script src="portfolio-enhancements.js"></script>
+</body>
+</html>
