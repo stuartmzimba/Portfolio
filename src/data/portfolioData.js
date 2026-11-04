@@ -1,3 +1,5 @@
+import { portraitDataUri } from '../assets/portrait';
+
 export const personalInfo = {
   name: "Stuart Mzimba",
   title: "Full-Stack Developer & Software Engineer",
@@ -13,7 +15,7 @@ export const personalInfo = {
   githubUsername: "stuartmzimba",
   linkedinUrl: "https://www.linkedin.com/in/stuart-mzimba-95836832a/",
   cvPdf: "/Stuart_Mzimba_CV.pdf",
-  avatarImg: "/stewie.jpg",
+  avatarImg: portraitDataUri,
   reference: {
     name: "B.P. Ngomane",
     relation: "Uncle",
