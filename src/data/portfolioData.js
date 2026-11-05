@@ -134,7 +134,7 @@ export const curatedProjects = [
     ],
     tech: ["Python", "FastAPI", "FP-Growth", "Acoustic Vectors", "Railway", "Clean UI"],
     githubUrl: "https://github.com/stuartmzimba/music-recommendation-system",
-    liveUrl: "https://music-recommender-production-9141.up.railway.app",
+    liveUrl: "https://music-recommender-production-9141.up.railway.app/app/",
     updated: "Nov 2026",
     stars: 1,
     forks: 0,
